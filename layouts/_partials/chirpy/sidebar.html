@@ -1,9 +1,10 @@
 {{- $here := .RelPermalink }}
+{{- $home := site.Home.RelPermalink }}
 {{- $icons := dict "archive" "archive" "topics" "folder" "categories" "folder" "search" "search" "about" "user" "tags" "tag" }}
 <aside id="sidebar" class="c-sidebar">
   <div class="c-profile">
     <a class="c-avatar" href="{{ "" | relURL }}" aria-label="{{ site.Title }} home">
-      {{- with site.Params.avatar }}<img src="{{ . | relURL }}" alt="" width="84" height="84">{{ else }}<span aria-hidden="true">{{ substr site.Title 0 1 }}</span>{{ end -}}
+      {{- with site.Params.avatar }}<img src="{{ strings.TrimPrefix "/" . | relURL }}" alt="" width="84" height="84">{{ else }}<span aria-hidden="true">{{ substr site.Title 0 1 }}</span>{{ end -}}
     </a>
     <a class="c-site-title" href="{{ "" | relURL }}">{{ site.Title }}</a>
     {{- with (site.Params.tagline | default site.Params.description) }}<p class="c-tagline">{{ . }}</p>{{ end }}
@@ -12,7 +13,7 @@
   <nav class="c-nav" aria-label="Main">
     <ul>
       <li>
-        <a href="{{ "" | relURL }}"{{ if or (eq $here "/") (hasPrefix $here "/posts/") }} class="active" aria-current="page"{{ end }}>
+        <a href="{{ "" | relURL }}"{{ if or (eq $here $home) (hasPrefix $here (printf "%sposts/" $home)) }} class="active" aria-current="page"{{ end }}>
           {{ partial "chirpy/icon.html" (dict "name" "home") }}<span>Home</span>
         </a>
       </li>
