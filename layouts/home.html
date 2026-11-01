@@ -1,0 +1,63 @@
+{{- define "main" }}
+{{- if eq (site.Params.style | default "notebook") "chirpy" }}
+{{- $sections := site.Params.mainSections | default site.MainSections }}
+{{- $pages := where site.RegularPages "Type" "in" $sections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" true }}
+{{- $pag := .Paginate $pages }}
+<div class="c-cards">
+  {{- range $pag.Pages }}
+  <article class="c-card">
+    <h2 class="c-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="c-card-summary">{{ .Summary | plainify | htmlUnescape | truncate 220 }}</p>
+    <div class="c-card-meta">
+      <span>{{ partial "chirpy/icon.html" (dict "name" "calendar" "size" 14) }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time></span>
+      {{- with .GetTerms "categories" }}{{ with index . 0 }}<a class="c-meta-link" href="{{ .RelPermalink }}">{{ partial "chirpy/icon.html" (dict "name" "folder" "size" 14) }}{{ .LinkTitle }}</a>{{ end }}{{ end }}
+      {{- with .GetTerms "tags" }}<span class="c-meta-tags">{{ partial "chirpy/icon.html" (dict "name" "tag" "size" 14) }}{{ range . }}<a class="c-tag-link" href="{{ .RelPermalink }}">{{ .LinkTitle | lower }}</a>{{ end }}</span>{{ end }}
+    </div>
+  </article>
+  {{- else }}
+  <p class="stream-empty">No posts yet. Create one with <code>hugo new content posts/my-first-post.md</code>.</p>
+  {{- end }}
+</div>
+{{- if gt $pag.TotalPages 1 }}
+<nav class="c-pager" aria-label="Pagination">
+  {{- if $pag.HasPrev }}<a href="{{ $pag.Prev.URL }}" rel="prev" aria-label="Newer posts">&lsaquo;</a>{{ end }}
+  {{- range $pag.Pagers }}<a href="{{ .URL }}"{{ if eq .PageNumber $pag.PageNumber }} class="current" aria-current="page"{{ end }}>{{ .PageNumber }}</a>{{ end }}
+  {{- if $pag.HasNext }}<a href="{{ $pag.Next.URL }}" rel="next" aria-label="Older posts">&rsaquo;</a>{{ end }}
+</nav>
+{{- end }}
+{{- else }}
+{{- with site.Params.homeInfoParams }}
+<header class="intro">
+  <h1 class="intro-title">{{ .Title | markdownify }}</h1>
+  <div class="intro-text">{{ .Content | $.Page.RenderString (dict "display" "block") }}</div>
+</header>
+{{- end }}
+
+{{- $sections := site.Params.mainSections | default site.MainSections }}
+{{- $pages := where site.RegularPages "Type" "in" $sections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" true }}
+
+{{- range $pages.GroupByDate "2006" }}
+<section class="year" aria-labelledby="year-{{ .Key }}">
+  <h2 class="year-label" id="year-{{ .Key }}">{{ .Key }}</h2>
+  <ol class="stream">
+    {{- range .Pages }}
+    <li class="stream-item">
+      <a class="stream-link" href="{{ .RelPermalink }}">
+        <span class="stream-title">{{ .Title }}</span>
+        <span class="stream-summary">{{ .Summary | plainify | htmlUnescape | truncate 170 }}</span>
+      </a>
+      <p class="stream-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan" }}</time>
+        {{- with .GetTerms "categories" }}{{ with index . 0 }}, <a class="kind" href="{{ .RelPermalink }}">{{ .LinkTitle | lower }}</a>{{ end }}{{ end }}
+      </p>
+    </li>
+    {{- end }}
+  </ol>
+</section>
+{{- else }}
+<p class="stream-empty">No posts yet. Create one with <code>hugo new content posts/my-first-post.md</code>.</p>
+{{- end }}
+{{- end }}
+{{- end }}

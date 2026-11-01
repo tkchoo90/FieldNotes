@@ -1,0 +1,9 @@
+<div class="c-topbar">
+  <nav class="c-crumbs" aria-label="Breadcrumb">
+    {{- if .IsHome }}<span aria-current="page">Home</span>
+    {{- else }}<a href="{{ "" | relURL }}">Home</a><span class="c-sep" aria-hidden="true">/</span><span class="c-crumb-current" aria-current="page">{{ .Title }}</span>{{ end -}}
+  </nav>
+  <a class="c-search" href="{{ "search/" | relURL }}">
+    {{ partial "chirpy/icon.html" (dict "name" "search" "size" 15) }}<span>Search</span>
+  </a>
+</div>

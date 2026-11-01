@@ -1,0 +1,32 @@
+/* Modern minimal: one sans family, white space and weight do the work. */
+:root {
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --size-body: 17px; --leading-body: 1.62;
+  --size-intro: 2.7rem; --size-post: 2.4rem; --size-entry: 1.18rem;
+  --weight-display: 600; --weight-title: 500; --weight-year: 600;
+  --tracking-display: -0.022em;
+  --theme: #FFFFFF; --entry: #FFFFFF;
+  --primary: #15191E;
+  --content: #2A3038;
+  --secondary: #636B75;
+  --tertiary: #D3D8DD;
+  --border: #E8EBEE;
+  --accent: #0E6A5B;     /* deep green */
+  --year: #D7DCE1;
+  --code-bg: #F1F3F5;
+  --code-block-bg: #1A1F25;
+}
+:root[data-theme="dark"] {
+  --theme: #15191E; --entry: #15191E;
+  --primary: #EEF1F4; --content: #CBD1D8; --secondary: #8C95A0;
+  --tertiary: #3A424C; --border: #262C33;
+  --accent: #5CC5AF; --year: #2E353E;
+  --code-bg: #20262D; --code-block-bg: #0E1216;
+}
+/* The signature: oversized, quiet year numerals that anchor each group. */
+.year-label { font-size: 4.5rem; letter-spacing: -0.045em; margin: 0 0 0.4rem; font-variant-numeric: tabular-nums; }
+.stream-item { border-top-color: transparent; padding: 0.9rem 0; }
+.stream-meta { font-size: 0.82rem; }
+.post-content table, .stream-meta, .post-meta { font-variant-numeric: tabular-nums; }

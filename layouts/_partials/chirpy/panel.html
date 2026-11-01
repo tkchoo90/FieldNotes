@@ -1,0 +1,27 @@
+<aside class="c-panel" aria-label="Sidebar">
+  {{- if and .IsPage (.Param "ShowToc") (gt (len .Fragments.Headings) 0) (gt (len (index .Fragments.Headings 0).Headings) 0) }}
+  <section class="c-panel-sec c-toc">
+    <h2>Contents</h2>
+    {{ .TableOfContents }}
+  </section>
+  {{- end }}
+
+  {{- $posts := where site.RegularPages "Type" "posts" }}
+  {{- with first 5 (sort $posts "Lastmod" "desc") }}
+  <section class="c-panel-sec">
+    <h2>Recently updated</h2>
+    <ul class="c-recent">
+      {{- range . }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  {{- with site.Taxonomies.tags }}
+  <section class="c-panel-sec">
+    <h2>Trending tags</h2>
+    <div class="c-tags">
+      {{- range first 10 .ByCount }}<a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle | lower }}</a>{{ end }}
+    </div>
+  </section>
+  {{- end }}
+</aside>

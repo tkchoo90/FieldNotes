@@ -1,0 +1,13 @@
+{{- $date := "" }}
+{{- if not .Date.IsZero }}
+{{- $date = printf "<time datetime=\"%s\">%s</time>" (.Date.Format "2006-01-02") (.Date | time.Format (default ":date_long" site.Params.DateFormat)) }}
+{{- end }}
+{{- $kind := "" }}
+{{- with .GetTerms "categories" }}{{ with index . 0 }}
+{{- $kind = printf "<a class=\"kind\" href=\"%s\">%s</a>" .RelPermalink (.LinkTitle | lower) }}
+{{- end }}{{ end }}
+{{- $parts := slice }}
+{{- with $date }}{{ $parts = $parts | append . }}{{ end }}
+{{- with $kind }}{{ $parts = $parts | append . }}{{ end }}
+{{- if (.Param "ShowReadingTime") }}{{ $parts = $parts | append (printf "%d min read" .ReadingTime) }}{{ end }}
+{{- delimit $parts ", " | safeHTML -}}

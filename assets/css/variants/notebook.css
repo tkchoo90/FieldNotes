@@ -1,0 +1,37 @@
+/* Editorial notebook: blue-black ink on cool paper, one serif family. */
+:root {
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-display: "Literata", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --size-body: 19px; --leading-body: 1.68;
+  --size-intro: 2.5rem; --size-post: 2.3rem; --size-entry: 1.3rem;
+  --weight-display: 600; --weight-title: 600; --weight-year: 400;
+  --tracking-display: -0.01em;
+  --theme: #F2F4F5;      /* cool paper */
+  --entry: #F2F4F5;
+  --primary: #17222E;    /* blue-black ink */
+  --content: #26313C;
+  --secondary: #5D6874;  /* pencil */
+  --tertiary: #C9D0D6;
+  --border: #D9DFE3;     /* ruled line */
+  --accent: #2C4F86;     /* fountain-pen blue */
+  --year: #8C97A3;
+  --code-bg: #E4E9EC;
+  --code-block-bg: #1C2632;
+}
+:root[data-theme="dark"] {
+  --theme: #141B23; --entry: #141B23;
+  --primary: #E6EAEE; --content: #C9D1D9; --secondary: #8E99A5;
+  --tertiary: #34404C; --border: #26313C;
+  --accent: #8FB0E6; --year: #5D6B7A;
+  --code-bg: #1F2933; --code-block-bg: #0F151C;
+}
+.intro-title { font-weight: 500; }
+.intro-text, .stream-summary { font-style: italic; }
+/* The signature: years hang in the left margin like dates in a notebook. */
+.year-label { font-style: italic; font-size: 1.15rem; margin: 0 0 0.6rem; }
+@media (min-width: 1000px) {
+  .year-label { position: absolute; inset-inline-end: calc(100% + 2rem); top: 0.15rem; margin: 0; font-size: 1.35rem; white-space: nowrap; }
+}
+.post-content p { hyphens: auto; }
+.post-content table, .stream-meta, .post-meta, .toc, .footer { font-variant-numeric: lining-nums tabular-nums; }
