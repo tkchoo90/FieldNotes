@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://tkchoo90.github.io/FieldNotes/sitemap.xml

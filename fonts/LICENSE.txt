@@ -1,0 +1,2 @@
+Literata, IBM Plex Sans, IBM Plex Mono, Lato and Source Sans 3 are licensed under the SIL Open Font License 1.1.
+Files obtained from the @fontsource packages (v5.3.0). https://openfontlicense.org
